@@ -1,6 +1,8 @@
 const db = require('../../data/dbConfig');
 
 const getAll = () => {
+	// Retrieves all tasks from and converts the boolean field from 1/0 to true/false
+
 	return db('tasks as t')
 		.join('projects as p', 'p.project_id', 't.project_id')
 		.orderBy('task_id')
@@ -20,6 +22,8 @@ const getAll = () => {
 };
 
 const insertNew = async newTask => {
+	// Inserts a new task into the database and returns the new object with converted boolean field
+
 	const id = await db('tasks').insert(newTask);
 	return db('tasks')
 		.where({ task_id: id })
